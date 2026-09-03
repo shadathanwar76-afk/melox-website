@@ -1,1 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MELOX Admin</title>
+</head>
+<body>
 
+<h1>MELOX Admin</h1>
+
+<div id="files">Loading files...</div>
+
+<script>
+const backend = "https://melox-website.onrender.com";
+
+fetch(backend + "/files")
+    .then(res => res.json())
+    .then(data => {
+        const box = document.getElementById("files");
+
+        if (!data.files || data.files.length === 0) {
+            box.innerHTML = "<p>No files uploaded.</p>";
+            return;
+        }
+
+        data.files.forEach(file => {
+            box.innerHTML += `
+                <p>
+                    📄 ${file}
+                    <a href="${backend}/files/${encodeURIComponent(file)}" target="_blank">
+                        Open
+                    </a>
+                </p>
+            `;
+        });
+    })
+    .catch(() => {
+        document.getElementById("files").innerHTML =
+            "Could not connect to server.";
+    });
+</script>
+
+</body>
+</html>
