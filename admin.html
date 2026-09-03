@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>MELOX Admin Panel</title>
-
+    <title>MELOX Admin Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
@@ -15,170 +14,101 @@
         body {
             font-family: Arial, sans-serif;
             background: #f4f6f8;
-            color: #111;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        header {
-            background: #111;
-            color: white;
-            padding: 20px;
+        .login-box {
+            background: white;
+            width: 90%;
+            max-width: 380px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
             text-align: center;
         }
 
-        header h1 {
-            font-size: 28px;
+        h1 {
+            margin-bottom: 5px;
         }
 
-        header p {
-            margin-top: 5px;
-            color: #aaa;
+        p {
+            color: #777;
+            margin-bottom: 25px;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 15px;
-        }
-
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-
-        .title {
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .file {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
+        input {
+            width: 100%;
+            padding: 13px;
             border: 1px solid #ddd;
-            border-radius: 10px;
-            margin-bottom: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 16px;
         }
 
-        .file-name {
-            font-weight: 500;
-            word-break: break-all;
-        }
-
-        .open-btn {
+        button {
+            width: 100%;
+            padding: 13px;
             background: #111;
             color: white;
-            text-decoration: none;
-            padding: 9px 16px;
-            border-radius: 7px;
-            white-space: nowrap;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
         }
 
-        .open-btn:hover {
+        button:hover {
             background: #333;
         }
 
-        .empty {
-            color: #777;
-            text-align: center;
-            padding: 20px;
-        }
-
-        @media (max-width: 600px) {
-            .file {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .open-btn {
-                width: 100%;
-                text-align: center;
-            }
+        #error {
+            color: red;
+            margin-top: 15px;
+            display: none;
         }
     </style>
 </head>
 
 <body>
 
-<header>
+<div class="login-box">
+
     <h1>MELOX</h1>
-    <p>Admin Panel</p>
-</header>
+    <p>Admin Login</p>
 
-<div class="container">
+    <input
+        type="password"
+        id="password"
+        placeholder="Enter admin password"
+    >
 
-    <div class="card">
+    <button onclick="login()">Login</button>
 
-        <div class="title">
-            📁 Uploaded Files
-        </div>
-
-        <div id="files">
-            Loading files...
-        </div>
-
-    </div>
+    <div id="error">Incorrect password</div>
 
 </div>
 
 <script>
 
-const backend = "https://melox-website.onrender.com";
+function login() {
 
-fetch(backend + "/files")
-    .then(response => response.json())
-    .then(data => {
+    const password = document.getElementById("password").value;
 
-        const box = document.getElementById("files");
+    // CHANGE THIS PASSWORD
+    const adminPassword = "MELOX@2026";
 
-        box.innerHTML = "";
+    if (password === adminPassword) {
 
-        const files = data.files || [];
+        window.location.href = "admin-files.html";
 
-        const realFiles = files.filter(file => file !== ".gitkeep");
+    } else {
 
-        if (realFiles.length === 0) {
-            box.innerHTML =
-                '<div class="empty">No files uploaded yet.</div>';
-            return;
-        }
+        document.getElementById("error").style.display = "block";
 
-        realFiles.forEach(file => {
-
-            const div = document.createElement("div");
-
-            div.className = "file";
-
-            div.innerHTML = `
-                <div class="file-name">
-                    📄 ${file}
-                </div>
-
-                <a
-                    class="open-btn"
-                    href="${backend}/files/${encodeURIComponent(file)}"
-                    target="_blank">
-                    Open PDF
-                </a>
-            `;
-
-            box.appendChild(div);
-
-        });
-
-    })
-    .catch(error => {
-
-        console.error(error);
-
-        document.getElementById("files").innerHTML =
-            '<div class="empty">Could not connect to MELOX server.</div>';
-
-    });
+    }
+}
 
 </script>
 
