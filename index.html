@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MELOX | Academic Work Simplified</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background Logo -->
+    <img src="melox-logo.png" class="background-logo">
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">MELOX</div>
+
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#order">Order</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+
+            <p class="tag">YOUR ACADEMIC WORK PARTNER</p>
+
+            <h1>
+                Notes. Lab Works.<br>
+                <span>Assignments.</span> Made Easy.
+            </h1>
+
+            <p class="hero-text">
+                MELOX helps students manage academic work with
+                convenient and organized writing support.
+            </p>
+
+            <a href="#order" class="btn">
+                PLACE AN ORDER →
+            </a>
+
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+
+        <p class="section-tag">WHAT WE OFFER</p>
+        <h2>Our Services</h2>
+
+        <div class="service-grid">
+
+            <div class="service-card">
+                <div class="icon">✍️</div>
+                <h3>Notes Writing</h3>
+                <p>Neat and well-organized academic notes.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="icon">📐</div>
+                <h3>Diagrams</h3>
+                <p>Clear and properly presented diagrams.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="icon">🧪</div>
+                <h3>Lab Works</h3>
+                <p>Neat and well-organized academic lab works.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="icon">📄</div>
+                <h3>Assignments</h3>
+                <p>Organized assistance for your assignments.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Order Section -->
+    <section class="order" id="order">
+
+        <p class="section-tag">GET STARTED</p>
+        <h2>Place Your Order</h2>
+
+        <form id="orderForm">
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Your Name"
+                required
+            >
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="WhatsApp Number"
+                required
+            >
+
+            <input
+                type="text"
+                id="college"
+                placeholder="College / Class"
+                required
+            >
+
+            <input
+                type="text"
+                id="subject"
+                placeholder="Subject"
+                required
+            >
+
+            <select id="service" required>
+                <option value="">Select Service</option>
+                <option value="Notes">Notes</option>
+                <option value="Diagram">Diagram</option>
+                <option value="Lab Works">Lab Works</option>
+                <option value="Assignment">Assignment</option>
+            </select>
+
+            <textarea
+                id="details"
+                placeholder="Work Details"
+                rows="5"
+                required
+            ></textarea>
+
+            <label for="file">Reference File (Optional)</label>
+
+            <input
+                type="file"
+                id="file"
+                accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
+            >
+
+            <input
+                type="date"
+                id="date"
+                required
+            >
+
+            <button type="submit" class="btn">
+                SEND ORDER → WhatsApp
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+
+        <h2>Let's Connect</h2>
+
+        <p>
+            Have a question or want to place an order?
+        </p>
+
+        <a href="#order" class="btn">
+            CONTACT MELOX
+        </a>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 MELOX. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
