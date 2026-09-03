@@ -18,7 +18,7 @@ document.getElementById("orderForm").addEventListener("submit", async function (
         formData.append("file", fileInput.files[0]);
 
         try {
-            const uploadResponse = await fetch("http://localhost:3000/upload", {
+            const uploadResponse = await fetch("https://melox-website.onrender.com/upload", {
                 method: "POST",
                 body: formData
             });
