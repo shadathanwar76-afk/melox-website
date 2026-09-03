@@ -1,42 +1,185 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>MELOX Admin</title>
+    <title>MELOX Admin Panel</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #111;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        header p {
+            margin-top: 5px;
+            color: #aaa;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .file {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .file-name {
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        .open-btn {
+            background: #111;
+            color: white;
+            text-decoration: none;
+            padding: 9px 16px;
+            border-radius: 7px;
+            white-space: nowrap;
+        }
+
+        .open-btn:hover {
+            background: #333;
+        }
+
+        .empty {
+            color: #777;
+            text-align: center;
+            padding: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .file {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .open-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<h1>MELOX Admin</h1>
+<header>
+    <h1>MELOX</h1>
+    <p>Admin Panel</p>
+</header>
 
-<div id="files">Loading files...</div>
+<div class="container">
+
+    <div class="card">
+
+        <div class="title">
+            📁 Uploaded Files
+        </div>
+
+        <div id="files">
+            Loading files...
+        </div>
+
+    </div>
+
+</div>
 
 <script>
+
 const backend = "https://melox-website.onrender.com";
 
 fetch(backend + "/files")
-    .then(res => res.json())
+    .then(response => response.json())
     .then(data => {
+
         const box = document.getElementById("files");
 
-        if (!data.files || data.files.length === 0) {
-            box.innerHTML = "<p>No files uploaded.</p>";
+        box.innerHTML = "";
+
+        const files = data.files || [];
+
+        const realFiles = files.filter(file => file !== ".gitkeep");
+
+        if (realFiles.length === 0) {
+            box.innerHTML =
+                '<div class="empty">No files uploaded yet.</div>';
             return;
         }
 
-        data.files.forEach(file => {
-            box.innerHTML += `
-                <p>
+        realFiles.forEach(file => {
+
+            const div = document.createElement("div");
+
+            div.className = "file";
+
+            div.innerHTML = `
+                <div class="file-name">
                     📄 ${file}
-                    <a href="${backend}/files/${encodeURIComponent(file)}" target="_blank">
-                        Open
-                    </a>
-                </p>
+                </div>
+
+                <a
+                    class="open-btn"
+                    href="${backend}/files/${encodeURIComponent(file)}"
+                    target="_blank">
+                    Open PDF
+                </a>
             `;
+
+            box.appendChild(div);
+
         });
+
     })
-    .catch(() => {
+    .catch(error => {
+
+        console.error(error);
+
         document.getElementById("files").innerHTML =
-            "Could not connect to server.";
+            '<div class="empty">Could not connect to MELOX server.</div>';
+
     });
+
 </script>
 
 </body>
