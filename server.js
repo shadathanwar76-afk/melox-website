@@ -30,12 +30,7 @@ filename: function (req, file, cb) {
 }
 });
 
-const upload = multer({
-    storage: storage,
-    limits: {
-        fileSize: 50 * 1024 * 1024
-    }
-});
+const upload = multer({ storage: storage });
 
 // Upload file
 app.post("/upload", upload.single("file"), (req, res) => {
