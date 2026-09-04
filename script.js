@@ -12,30 +12,45 @@ document.getElementById("orderForm").addEventListener("submit", async function (
 
     let fileMessage = "No reference file uploaded.";
 
-    // Upload file to MELOX backend
     if (fileInput.files.length > 0) {
+
         const formData = new FormData();
         formData.append("file", fileInput.files[0]);
 
         try {
-            const uploadResponse = await fetch("https://melox-website.onrender.com/upload", {
-                method: "POST",
-                body: formData,
-                cache: "no-store",
-            });
+
+            const uploadResponse = await fetch(
+                "https://melox-website.onrender.com/upload",
+                {
+                    method: "POST",
+                    body: formData,
+                    cache: "no-store",
+                    mode: "cors"
+                }
+            );
+
+            if (!uploadResponse.ok) {
+                throw new Error("Server returned status " + uploadResponse.status);
+            }
 
             const uploadResult = await uploadResponse.json();
 
             if (uploadResult.success) {
                 fileMessage = "Reference File: " + uploadResult.filename;
             } else {
-                alert("File upload failed.");
+                alert("File upload failed: " + (uploadResult.message || "Unknown error"));
                 return;
             }
 
         } catch (error) {
-            console.error(error);
-            alert("Could not connect to MELOX server.");
+
+            console.error("MELOX Upload Error:", error);
+
+            alert(
+                "File upload failed.\n\n" +
+                "Please try again with another file."
+            );
+
             return;
         }
     }
