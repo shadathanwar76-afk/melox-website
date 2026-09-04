@@ -20,7 +20,8 @@ document.getElementById("orderForm").addEventListener("submit", async function (
         try {
             const uploadResponse = await fetch("https://melox-website.onrender.com/upload", {
                 method: "POST",
-                body: formData
+                body: formData,
+                cache: "no-store",
             });
 
             const uploadResult = await uploadResponse.json();
